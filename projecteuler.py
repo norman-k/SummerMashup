@@ -45,7 +45,7 @@ def largest_prime_factor(n):
 		e = e + 1
 	print n
 #largest_prime_factor(600851475143)
-#Problem 4 100000
+#Problem 4 
 def largest_palindrome_product_of_two3digitnumbers():
 	a = 0
 	for x in range(1,999):
@@ -53,8 +53,8 @@ def largest_palindrome_product_of_two3digitnumbers():
 			z = x * y
 			if z > a:
 				b = str(z)
-				if b == b[::-1]: #splices a string such that it reads it backwards
+				if b == b[::-1]: #slices a string such that it reads it backwards
 					a = z
 	print a
 largest_palindrome_product_of_two3digitnumbers()
-
+#Problem 5
