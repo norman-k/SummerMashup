@@ -37,7 +37,6 @@ def sum_of_even_fibonacci_numbers():
 #sum_of_even_fibonacci_numbers()
 #Problem 3
 import math
-from random import randint
 def largest_prime_factor(n):
 	e = 2
 	while e < int(math.sqrt(n)):
@@ -45,4 +44,17 @@ def largest_prime_factor(n):
 			n = n / e
 		e = e + 1
 	print n
-largest_prime_factor(600851475143)
+#largest_prime_factor(600851475143)
+#Problem 4 100000
+def largest_palindrome_product_of_two3digitnumbers():
+	a = 0
+	for x in range(1,999):
+		for y in range(1,999):
+			z = x * y
+			if z > a:
+				b = str(x * y)
+				if b == b[::-1]: #splices a string such that it reads it backwards
+					a = z
+	print a
+largest_palindrome_product_of_two3digitnumbers()
+
