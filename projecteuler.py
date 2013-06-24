@@ -52,7 +52,7 @@ def largest_palindrome_product_of_two3digitnumbers():
 		for y in range(1,999):
 			z = x * y
 			if z > a:
-				b = str(x * y)
+				b = str(z)
 				if b == b[::-1]: #splices a string such that it reads it backwards
 					a = z
 	print a
