@@ -8,14 +8,14 @@ def sum_multof3and5(n):
 		if y % 5 == 0:
 			z = z + y
 	print z
-sum_multof3and5(1000)
+#sum_multof3and5(1000)
 #Problem1 -- Alternative Solution
 def sum_multof3and5_alternative(n):
 	print sum(x for x in xrange(n) if not (x % 3 and x % 5)) 
 #As long as x is not divisble by both 3 and 5, but still divisible 
 #by either 3 or 5, take it and add all existing values of x
 #It's interesting how this is observed with De Morgan's law: ~(P ^ Q) is the same as ~P v ~Q
-sum_multof3and5_alternative(1000)
+#sum_multof3and5_alternative(1000)
 #Problem 2
 def sum_of_even_fibonacci_numbers():
 	x = 1
@@ -34,4 +34,15 @@ def sum_of_even_fibonacci_numbers():
 		if z % 2 == 0:
 			a.append(z)
 	print sum(a)
-sum_of_even_fibonacci_numbers()
+#sum_of_even_fibonacci_numbers()
+#Problem 3
+import math
+from random import randint
+def largest_prime_factor(n):
+	e = 2
+	while e < int(math.sqrt(n)):
+		if n % e == 0:
+			n = n / e
+		e = e + 1
+	print n
+largest_prime_factor(600851475143)
