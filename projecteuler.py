@@ -56,5 +56,19 @@ def largest_palindrome_product_of_two3digitnumbers():
 				if b == b[::-1]: #slices a string such that it reads it backwards
 					a = z
 	print a
-largest_palindrome_product_of_two3digitnumbers()
+#largest_palindrome_product_of_two3digitnumbers()
 #Problem 5
+def smallest_multiple(n):
+	e = n
+	a = 2
+	while n % a == 0:
+		a += 1
+	b = a
+	while b < n:
+		if e % b != 0:
+			e += n
+			b = a
+		else:
+			b += 1
+	print a	
+smallest_multiple(20) 
