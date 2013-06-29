@@ -4,9 +4,9 @@
 ####################################################
 # north, south, east, west
 # = = = = = = = = = = = = = = =
-#               |14| |16| |17| |18| : |29|
-# -------------           : :  |19| : |28|
-# |10 |11 |:::| |12| |15| : :  |20| : |27|
+#               |14| |16| |17| |18| : |29||30||31|
+# -------------           : :  |19| : |28||32|:
+# |10 |11 |:::| |12| |15| : :  |20| : |27|----:
 # -------------           : :  |21| : |26|
 # | 7 | 8 | 9 | |13| |::| : :  |22| : |25|
 # -------------                |23||24|
@@ -94,11 +94,15 @@ grand_hall2 = [27,25,0,0] #room 26
 grand_hall3 = [28,26,0,0] #room 27
 grand_hall4 = [29,27,0,0] #room 28
 grand_hall5 = [0,28,30,0] #room 29
+kitchen1 = [0,32,31,0] #room 30
+back_door = [0,33,0,0] #room 31
+side_door = [30,0,0,0] #room 32
 room_map = [null,hall,staircase,wine_cellar,kitchen,armory,closet, #first floor
             locked_door,second_floor,dead_end,attic,window, #second floor 
             ground,grass1,grass2,grass3,mail_box,sidewalk, #outside
             open_door1,hallway,hallway2,hallway3,hallway4,hallway5, #second house layer 1 
-            second_section,grand_hall1,grand_hall2 #second house layer 2
+            second_section,grand_hall1,grand_hall2,grand_hall3,grand_hall4,grand_hall5, #second house layer 2
+            kitchen,back_door,side_door 
             ] 
 room_descriptions = {
     1:'You are by the hall',
@@ -129,8 +133,11 @@ room_descriptions = {
     26:'Grand Hall',
     27:'You are by the dinner table, you see a silver spoon glistening on the floor',
     28:'Grand Hall',
-    29:'End of hallway'
-}
+    29:'End of hallway',
+    30:'Kitchen, silverware is lain laxely over the countertop, there is a back door and side door as exits',
+    31:'Back door of the house'
+    32:'You are bye the side door and a small garden enclosed by a fence'
+    }
 room_items = {
     1: 'shattered_glass',
     2:None,
@@ -160,7 +167,10 @@ room_items = {
     26:None,
     27:'spoon',
     28:None,
-    29:None
+    29:None,
+    30:None,
+    31:None,
+    32:'map'
 }
 def init():  
     room = location(1)
