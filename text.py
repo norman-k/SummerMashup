@@ -135,7 +135,7 @@ room_descriptions = {
     28:'Grand Hall',
     29:'End of hallway',
     30:'Kitchen, silverware is lain laxely over the countertop, there is a back door and side door as exits',
-    31:'Back door of the house'
+    31:'Back door of the house',
     32:'You are bye the side door and a small garden enclosed by a fence'
     }
 room_items = {
