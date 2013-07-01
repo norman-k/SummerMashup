@@ -4,7 +4,7 @@
 ####################################################
 # north, south, east, west
 # = = = = = = = = = = = = = = =
-#               |14| |16| |17| |18| : |29||30||31|
+#               |14| |16| |17| |18| : |29||30||31||33|
 # -------------           : :  |19| : |28||32|:
 # |10 |11 |:::| |12| |15| : :  |20| : |27|----:
 # -------------           : :  |21| : |26|
@@ -95,14 +95,17 @@ grand_hall3 = [28,26,0,0] #room 27
 grand_hall4 = [29,27,0,0] #room 28
 grand_hall5 = [0,28,30,0] #room 29
 kitchen1 = [0,32,31,0] #room 30
-back_door = [0,33,0,0] #room 31
+back_door = [0,0,33,30] #room 31
 side_door = [30,0,0,0] #room 32
+barrons_garden = [32,34,35,0] #room 33
+treasure = [33,36,37,0] #room 34
 room_map = [null,hall,staircase,wine_cellar,kitchen,armory,closet, #first floor
             locked_door,second_floor,dead_end,attic,window, #second floor 
             ground,grass1,grass2,grass3,mail_box,sidewalk, #outside
             open_door1,hallway,hallway2,hallway3,hallway4,hallway5, #second house layer 1 
             second_section,grand_hall1,grand_hall2,grand_hall3,grand_hall4,grand_hall5, #second house layer 2
-            kitchen,back_door,side_door 
+            kitchen1,back_door,side_door, #back of second house
+            barrons_garden,treasure #Barrons Garden
             ] 
 room_descriptions = {
     1:'You are by the hall',
@@ -136,7 +139,8 @@ room_descriptions = {
     29:'End of hallway',
     30:'Kitchen, silverware is lain laxely over the countertop, there is a back door and side door as exits',
     31:'Back door of the house',
-    32:'You are bye the side door and a small garden enclosed by a fence'
+    32:'You are by the side door and a small garden enclosed by a fence',
+    33:"A sign nearby reads: 'Barrons Garden', a few holes are visible"
     }
 room_items = {
     1: 'shattered_glass',
@@ -170,7 +174,9 @@ room_items = {
     29:None,
     30:None,
     31:None,
-    32:'map'
+    32:'map',
+    33:'shovel',
+    34:None
 }
 def init():  
     room = location(1)
@@ -224,6 +230,18 @@ first_letter =  '''
                 You put the letter back into
                 your bag
                 '''
+first_map = '''
+               |14| |16| |17| |18| : |29||30||31|
+ -------------           : :  |19| : |28||32|:
+ |10 |11 |:::| |12| |15| : :  |20| : |27|----:
+ -------------           : :  |21| : |26|
+ | 7 | 8 | 9 | |13| |::| : :  |22| : |25|
+ -------------                |23||24|
+ | 5 | 2 | 3 | |::|
+ ------------- 
+ | 6 | 1 | 4 | 
+ ------------- 
+            '''
 def move(site):
     player.pos = locations[site]
 def inspect():
@@ -329,13 +347,24 @@ def smite(args):
             print "What you wish to smite, is not here"
     except:
         print "What you wish to smite, is not here"
+def dig(args):
+    if 'shovel' in player.inventory:
+        if index == 34:
+            print "You found a black pearl"
+            room_items[34] = 'black_pearl'
+        else:
+            print "You dug up nothing"
+    else:
+        print "You can't do that yet"
 def read(args):
     if len(args) == 0:
         print str(player.inventory).strip('[]')
         print "Read what from your inventory?"
     elif args[0] in player.inventory:
         if args[0] == "letter":
-            print first_letter
+            print "Here is your trace as of when you picked up this map\n",first_letter
+        elif args[0] == "map":
+            print first_map
         else:
             print "You can't read that"
     else:
@@ -378,6 +407,7 @@ def gamehelp(args):
     look 'l' for looking,
     quaff 'q' for drinking,
     smite 'sm' for smiting,
+    dig 'd' for digging,
     take 't' for taking,
     delete 'del' for deleting,
     exit for exiting,
@@ -436,6 +466,8 @@ commands = {
     'q':quaff,
     'smite':smite,
     'sm':smite,
+    'dig':dig,
+    'd':dig,
     'read':read,
     'r':read,
     'look':look,
