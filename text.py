@@ -140,7 +140,8 @@ room_descriptions = {
     30:'Kitchen, silverware is lain laxely over the countertop, there is a back door and side door as exits',
     31:'Back door of the house',
     32:'You are by the side door and a small garden enclosed by a fence',
-    33:"A sign nearby reads: 'Barrons Garden', a few holes are visible"
+    33:"A sign nearby reads: 'Barrons Garden', a few holes are visible",
+    34:"One of the few patches of grass not touched in the garden"
     }
 room_items = {
     1: 'shattered_glass',
@@ -181,7 +182,21 @@ room_items = {
 def init():  
     room = location(1)
     room.setDescription(room_descriptions[1])
-    room.addItem(room_items[1])   
+    room.addItem(room_items[1])
+    print '''
+              ___           _     _                            
+             / _ \         | |   (_)                           
+            / /_\ \_ __ ___| |__  _ _ __ ___   __ _  __ _  ___ 
+            |  _  | '__/ __| '_ \| | '_ ` _ \ / _` |/ _` |/ _ \\
+            | | | | | | (__| | | | | | | | | | (_| | (_| |  __/
+            \_| |_/_|  \___|_| |_|_|_| |_| |_|\__,_|\__, |\___|
+                                                     __/ |     
+                                                    |___/      
+            Norman (C) 2013
+            
+    Hit enter to continue
+        '''
+    x = raw_input('> ')
     print '''
     ...A dark guise envelops you...
     Hit enter to continue
