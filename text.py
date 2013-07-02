@@ -4,9 +4,9 @@
 ####################################################
 # north, south, east, west
 # = = = = = = = = = = = = = = =
-#               |14| |16| |17| |18| : |29||30||31||33|
-# -------------           : :  |19| : |28||32|:
-# |10 |11 |:::| |12| |15| : :  |20| : |27|----:
+#               |14| |16| |17| |18| : |29||30||31||33||35|
+# -------------           : :  |19| : |28||32|:   |34||37|
+# |10 |11 |:::| |12| |15| : :  |20| : |27|----:   |36||38|
 # -------------           : :  |21| : |26|
 # | 7 | 8 | 9 | |13| |::| : :  |22| : |25|
 # -------------                |23||24|
@@ -99,13 +99,15 @@ back_door = [0,0,33,30] #room 31
 side_door = [30,0,0,0] #room 32
 barrons_garden = [32,34,35,0] #room 33
 treasure = [33,36,37,0] #room 34
+grass4 = [0,37,0,33] #room 35
+grass5 = [34,0,38,0] #room 36
 room_map = [null,hall,staircase,wine_cellar,kitchen,armory,closet, #first floor
             locked_door,second_floor,dead_end,attic,window, #second floor 
             ground,grass1,grass2,grass3,mail_box,sidewalk, #outside
             open_door1,hallway,hallway2,hallway3,hallway4,hallway5, #second house layer 1 
             second_section,grand_hall1,grand_hall2,grand_hall3,grand_hall4,grand_hall5, #second house layer 2
             kitchen1,back_door,side_door, #back of second house
-            barrons_garden,treasure #Barrons Garden
+            barrons_garden,treasure,grass4,grass5 #Barrons Garden
             ] 
 room_descriptions = {
     1:'You are by the hall',
@@ -144,6 +146,7 @@ room_descriptions = {
     34:"One of the few patches of grass not touched in the garden"
     }
 room_items = {
+    0:None,
     1: 'shattered_glass',
     2:None,
     3:'vodka',
@@ -363,10 +366,14 @@ def smite(args):
     except:
         print "What you wish to smite, is not here"
 def dig(args):
+    dig = 0
     if 'shovel' in player.inventory:
-        if index == 34:
+        if index == 34 and dig == 0:
             print "You found a black pearl"
-            room_items[34] = 'black_pearl'
+            "You put it into your backpack"
+            room.addItem('black_pearl')
+            take('black_pearl')
+            dig = 1
         else:
             print "You dug up nothing"
     else:
@@ -386,7 +393,7 @@ def read(args):
         print "That item is not in your inventory"
 def take(args):
     try:
-        if len(player.inventory) > 10:
+        if len(player.inventory) > 15:
             print "Not enough space, delete some items to keep it under 10"
         elif args[0] in player.pos.inventory:
             player.inventory += [args[0]]
@@ -428,6 +435,10 @@ def gamehelp(args):
     exit for exiting,
     north 'n', south 's', east 'e', and west 'w' for moving
     health for checking your health'''
+def item_check():
+    global index
+    if room_items[index] in player.inventory:
+            player.pos.deleteItem(room_items[index])
 def north(args):
     global index
     try:
@@ -436,6 +447,7 @@ def north(args):
         room.addItem(room_items[room_map[index][0]])
         move(room_map[index][0])
         index = room_map[index][0]
+        item_check()
         look('')
     except:
         inspect()
@@ -447,6 +459,7 @@ def south(args):
         room.addItem(room_items[room_map[index][1]])
         move(room_map[index][1])
         index = room_map[index][1]
+        item_check()
         look('')
     except:
         inspect()
@@ -458,6 +471,7 @@ def east(args):
         room.addItem(room_items[room_map[index][2]])
         move(room_map[index][2])
         index = room_map[index][2]
+        item_check()
         look('')
     except:
         inspect()
@@ -469,6 +483,7 @@ def west(args):
         room.addItem(room_items[room_map[index][3]])
         move(room_map[index][3])
         index = room_map[index][3]
+        item_check()
         look('')
     except:
         inspect()
