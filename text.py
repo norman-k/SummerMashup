@@ -101,13 +101,15 @@ barrons_garden = [32,34,35,0] #room 33
 treasure = [33,36,37,0] #room 34
 grass4 = [0,37,0,33] #room 35
 grass5 = [34,0,38,0] #room 36
+grass6 = [35,38,0,34] #room 37
+magician = [0,0,0,0] #room 38
 room_map = [null,hall,staircase,wine_cellar,kitchen,armory,closet, #first floor
             locked_door,second_floor,dead_end,attic,window, #second floor 
             ground,grass1,grass2,grass3,mail_box,sidewalk, #outside
             open_door1,hallway,hallway2,hallway3,hallway4,hallway5, #second house layer 1 
             second_section,grand_hall1,grand_hall2,grand_hall3,grand_hall4,grand_hall5, #second house layer 2
             kitchen1,back_door,side_door, #back of second house
-            barrons_garden,treasure,grass4,grass5 #Barrons Garden
+            barrons_garden,treasure,grass4,grass5,grass6,magician #Barrons Garden
             ] 
 room_descriptions = {
     1:'You are by the hall',
@@ -143,7 +145,11 @@ room_descriptions = {
     31:'Back door of the house',
     32:'You are by the side door and a small garden enclosed by a fence',
     33:"A sign nearby reads: 'Barrons Garden', a few holes are visible",
-    34:"One of the few patches of grass not touched in the garden"
+    34:"One of the few patches of grass not touched in the garden",
+    35:'A messed-up patch',
+    36:'A messed-up patch',
+    37:'A messed-up patch',
+    38:'A messed-up patch....you hear something break in the distance'
     }
 room_items = {
     0:None,
@@ -180,7 +186,11 @@ room_items = {
     31:None,
     32:'map',
     33:'shovel',
-    34:None
+    34:None,
+    35:None,
+    36:None,
+    37:None,
+    38:None
 }
 def init():  
     room = location(1)
@@ -304,6 +314,11 @@ def inspect():
             print "Keep fighting till it's dead!"
             print "The snake's health: "
             print snake.health
+    elif index == 38:
+        print '...\n'
+        print '...\n'
+        print 'A dark figure is approaching you as you lay paralyzed....'
+        print '....\n'
     else:
         print "Can't go any further"
 def look(args):
@@ -366,13 +381,15 @@ def smite(args):
     except:
         print "What you wish to smite, is not here"
 def dig(args):
+    global index
     dig = 0
     if 'shovel' in player.inventory:
         if index == 34 and dig == 0:
-            print "You found a black pearl"
-            "You put it into your backpack"
+            room = location(room_map[33][1])
+            print "You unearthed a black pearl"
             room.addItem('black_pearl')
-            take('black_pearl')
+            player.pos.addItem('black_pearl')
+            player.pos.deleteItem(None)
             dig = 1
         else:
             print "You dug up nothing"
@@ -404,7 +421,7 @@ def take(args):
         else:
             print "There are none of these here"
     except:
-        print "Take what?"
+        print "take what?"
 def delete(args):
     try:
         if args[0] in player.inventory:
